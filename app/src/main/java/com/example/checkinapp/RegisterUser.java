@@ -21,7 +21,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBarRegister;
-    private EditText editTextFullName, editTextPhoneNum, editTextEmail, editTextPassword;
+    private EditText editTextFullName, editTextPhoneNum, editTextEmail, editTextPassword, editTextPasswordConf;
     private TextView registerUser;
 
     @Override
@@ -35,6 +35,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         editTextFullName = (EditText) findViewById(R.id.fullName);
         editTextPhoneNum = (EditText) findViewById(R.id.phoneNum);
         editTextPassword = (EditText) findViewById(R.id.password);
+        editTextPasswordConf = (EditText) findViewById(R.id.passwordConf);
 
         registerUser = (TextView) findViewById(R.id.registerBtn);
         registerUser.setOnClickListener(this);
@@ -46,8 +47,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.registerBtn:
-                
-                
                 registerUser();
                 break;
         }
@@ -56,12 +55,19 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private void registerUser() {
         String email = editTextEmail.getText().toString().trim();
         String fullName = editTextFullName.getText().toString().trim();
+        String confirmPassword = editTextPasswordConf.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String phoneNum = editTextPhoneNum.getText().toString().trim();
 
         if (fullName.isEmpty()) {
             editTextFullName.setError("Full name is required");
             editTextFullName.requestFocus();
+            return;
+        }
+
+        if (!phoneNum.isEmpty() && phoneNum.length() != 10) {
+            editTextPhoneNum.setError("Please enter a valid phone number");
+            editTextPhoneNum.requestFocus();
             return;
         }
 
@@ -87,6 +93,12 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         if (password.length() < 6) {
             editTextPassword.setError("Minimum password length is 6 characters");
             editTextPassword.requestFocus();
+            return;
+        }
+
+        if (confirmPassword != password) {
+            editTextPasswordConf.setError("Passwords do not match");
+            editTextPasswordConf.requestFocus();
             return;
         }
 
