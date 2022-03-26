@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "801847305528",
+    "project_id": "checkinandroid-efb6c",
+    "storage_bucket": "checkinandroid-efb6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801847305528:android:3aa34b38ff7a1794090dcd",
+        "android_client_info": {
+          "package_name": "com.example.checkinapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801847305528-qj40k3g4q3q5mq001rgln2t9jgukaceo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4GDDjCIk-04TuHSpnTIaIXn46wdy9inQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801847305528-qj40k3g4q3q5mq001rgln2t9jgukaceo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
