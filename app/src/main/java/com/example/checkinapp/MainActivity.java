@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loginUser() {
         String email = editTextEmail.getText().toString().trim();
         String pass = editTextPassword.getText().toString().trim();
+        Boolean develMode = true;
 
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
@@ -92,11 +94,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(MainActivity.this, HomePageActivity.class));
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user.isEmailVerified() || develMode) {
+                        startActivity(new Intent(MainActivity.this, HomePageActivity.class));
+                    } else {
+                        user.sendEmailVerification();
+                        Toast.makeText(MainActivity.this, "Email is not yet verified. Please check your email for verification link.", Toast.LENGTH_LONG).show();
+                    }
                     progressBar.setVisibility(View.GONE);
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(MainActivity.this, "Failed to login, Incorrect email or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Failed to login, Incorrect email or password.", Toast.LENGTH_LONG).show();
                 }
             }
         });
