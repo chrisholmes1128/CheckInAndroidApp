@@ -3,6 +3,7 @@ package com.example.checkinapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -96,7 +97,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        if (confirmPassword != password) {
+        if (!confirmPassword.equals(password)) {
             editTextPasswordConf.setError("Passwords do not match");
             editTextPasswordConf.requestFocus();
             return;
@@ -117,6 +118,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(RegisterUser.this, "Registration Successful", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(RegisterUser.this, MainActivity.class));
                                         progressBarRegister.setVisibility(View.GONE);
                                     } else {
                                         Toast.makeText(RegisterUser.this, "Registration Unsuccessful. Please try again", Toast.LENGTH_LONG).show();
